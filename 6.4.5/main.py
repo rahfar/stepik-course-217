@@ -1,40 +1,47 @@
-from queue import Queue
+inversions_cnt = 0
 
 
-def merge(a, b, inversions_cnt):
-    i, j = 0, 0
-    result = []
-    while len(result) < len(a) + len(b):
-        if i < len(a) and j < len(b) and a[i] <= b[j]:
-            result.append(a[i])
+def merge(a, b):
+    global inversions_cnt
+    i, j, k = 0, 0, 0
+    len_a = len(a)
+    len_b = len(b)
+    len_result = 0
+    result = [0] * (len_a + len_b)
+    while len_result < len_a + len_b:
+        if i < len_a and j < len_b and a[i] <= b[j]:
+            result[k] = a[i]
+            k += 1
+            len_result += 1
             i += 1
-        elif i < len(a) and j < len(b) and a[i] > b[j]:
-            result.append(b[j])
+        elif i < len_a and j < len_b and a[i] > b[j]:
+            result[k] = b[j]
+            k += 1
+            len_result += 1
             j += 1
-            inversions_cnt += len(a[i:])
-        elif i >= len(a):
-            result += b[j:]
-        elif j >= len(b):
-            result += a[i:]
-    return result, inversions_cnt
+            inversions_cnt += len_a - i
+        elif i >= len_a:
+            result[k:] = b[j:]
+            len_result += len_b - j
+        elif j >= len_b:
+            result[k:] = a[i:]
+            len_result += len_a - i
+    return result
 
 
-def merge_sort(a):
-    q = Queue()
-    inversions_cnt = 0
-    for i in a:
-        q.put([i])
-    while q.qsize() > 1:
-        tmp, inversions_cnt = merge(q.get(), q.get(), inversions_cnt)
-        q.put(tmp)
-    return inversions_cnt
+def merge_sort(a, l, r):
+    if l < r:
+        m = (l + r) // 2
+        a[l:r+1] = merge(merge_sort(a, l, m), merge_sort(a, m + 1, r))
+    return a[l:r+1]
 
 
 def main():
+    global inversions_cnt
     input()
     a = list(map(int, input().split()))
-    result = merge_sort(a)
-    print(result)
+    merge_sort(a, 0, len(a)-1)
+    print(inversions_cnt)
 
 
 if __name__ == "__main__":
