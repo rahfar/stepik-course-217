@@ -41,8 +41,8 @@ def main():
     answer = []
     for point in points:
         answer.append(
-            count_1(sorted_section_beginings, point) -
-            count_2(sorted_section_endings, point)
+            count_1(sorted_section_beginings, point)
+            - count_2(sorted_section_endings, point)
         )
     print(*answer)
 

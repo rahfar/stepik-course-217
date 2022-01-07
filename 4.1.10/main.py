@@ -1,5 +1,6 @@
 import math
 
+
 def foo(n):
     # k = math.floor((-1+math.sqrt(1+8*n)/2))
     k = 1
@@ -15,12 +16,14 @@ def foo(n):
             n -= k
             k += 1
     print(k)
-    print(*ans, sep=' ')
+    print(*ans, sep=" ")
     return 0
+
 
 def main():
     n = int(input())
     foo(n)
+
 
 if __name__ == "__main__":
     main()

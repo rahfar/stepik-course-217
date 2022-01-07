@@ -14,9 +14,10 @@ def run_module(input: ByteString, output: ByteString):
 
 
 def test_1():
-    input = b"""4
-3 6 7 12
+    input = b"""5
+5 3 4 4 2
 """
-    output = b"""3
+    output = b"""4
+1 3 4 5
 """
     run_module(input, output)

@@ -32,15 +32,15 @@ def merge(a, b):
 def merge_sort(a, l, r):
     if l < r:
         m = (l + r) // 2
-        a[l:r+1] = merge(merge_sort(a, l, m), merge_sort(a, m + 1, r))
-    return a[l:r+1]
+        a[l : r + 1] = merge(merge_sort(a, l, m), merge_sort(a, m + 1, r))
+    return a[l : r + 1]
 
 
 def main():
     global inversions_cnt
     input()
     a = list(map(int, input().split()))
-    merge_sort(a, 0, len(a)-1)
+    merge_sort(a, 0, len(a) - 1)
     print(inversions_cnt)
 
 

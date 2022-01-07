@@ -1,7 +1,8 @@
 from array import array
 
+
 def fib_mod(n, m):
-    period = array('Q', [0, 1])
+    period = array("Q", [0, 1])
     flg = False
     i = 2
     if n == 1 or n == 2:
@@ -16,7 +17,6 @@ def fib_mod(n, m):
         return period[n % len(period)]
     else:
         return period[-1]
-    
 
 
 def main():
