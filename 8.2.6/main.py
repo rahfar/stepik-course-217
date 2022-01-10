@@ -1,26 +1,40 @@
 def main():
     n, a = int(input()), list(map(int, input().split()))
-    d, prev = [1] * n, [-1] * n
-    for i in range(0, n):
-        for j in range(0, i):
-            if a[i] <= a[j] and d[j] + 1 > d[i]:
-                d[i] = d[j] + 1
-                prev[i] = j
 
-    max_d_value = 1
-    max_d_index = 0
-    for ind, cur in enumerate(d):
-        if max_d_value < cur:
-            max_d_value = cur
-            max_d_index = ind
+    m = [0] * (
+        n + 1
+    )  # m[j] = index of the highest element of a in witch ends current LIS
+    p = [0] * n
+    l = 0  # length of current LIS
 
-    cur_index = max_d_index
-    index_list = list()
-    while cur_index != -1:
-        index_list.insert(0, cur_index + 1)
-        cur_index = prev[cur_index]
-    print(max_d_value)
-    print(*index_list)
+    # costruct m, p lists
+    for i in range(len(a)):
+        left = 1
+        right = l + 1
+        while left < right:
+            mid = (left + right) // 2
+            if a[m[mid]] >= a[i]:
+                left = mid + 1
+            else:
+                right = mid
+
+        new_l = left
+
+        p[i] = m[new_l - 1]
+        m[new_l] = i
+
+        if new_l > l:
+            l = new_l
+
+    # construct solution from m, p, a
+    s = [0] * l
+    k = m[l]
+    for i in range(len(s) - 1, -1, -1):
+        s[i] = k + 1
+        k = p[k]
+
+    print(l)
+    print(*s)
 
 
 if __name__ == "__main__":
