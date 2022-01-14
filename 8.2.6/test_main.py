@@ -9,6 +9,7 @@ def run_module(input: ByteString, output: ByteString):
         input=input,
         capture_output=True,
         cwd=pathlib.Path(__file__).parent,
+        check=True,
     )
     assert output == res.stdout
 

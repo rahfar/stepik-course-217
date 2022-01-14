@@ -1,9 +1,16 @@
 import subprocess
+import pathlib
 from typing import ByteString
 
 
 def run_module(input: ByteString, output: ByteString):
-    res = subprocess.run(["python", "main.py"], input=input, capture_output=True)
+    res = subprocess.run(
+        ["python", "main.py"],
+        input=input,
+        capture_output=True,
+        cwd=pathlib.Path(__file__).parent,
+        check=True,
+    )
     assert output == res.stdout
 
 

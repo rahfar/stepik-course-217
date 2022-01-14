@@ -11,13 +11,13 @@ def run_module(input: ByteString, output: ByteString):
         cwd=pathlib.Path(__file__).parent,
         check=True,
     )
-    assert output == res.stdout
+    assert output.decode("utf-8").strip() == res.stdout.decode("utf-8").strip()
 
 
 def test_1():
-    input = b"""4
-3 6 7 12
+    input = b"""10 3
+1 4 8
 """
-    output = b"""3
+    output = b"""9
 """
     run_module(input, output)
